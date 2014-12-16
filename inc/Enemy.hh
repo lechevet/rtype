@@ -5,14 +5,12 @@
 
 class		Enemy : public AEntity
 {
-private:
-  int		life;
-
 public:
-  Enemy();
+  Enemy(SpriteGiver &);
   ~Enemy();
   int		getLife() const;
   void		getDamage(int power, EnumSound type);
+  bool		move();
 };
 
 #endif

@@ -16,9 +16,10 @@ private:
 public:
   EventManager(RenderWindow *);
   ~EventManager();
-  void		checkEvent();
-  void		shipReaction(Ship *, const Vector2f &);
-  void		spawningEnemies(EntityManager &entityManager);
+  void		checkEvent(EntityManager &entityManager, IEntity *ship);
+  void		spawningEnemies(EntityManager &entityManager, SpriteGiver &sprites);
+  std::map<Keyboard::Key, bool>&	getKeyState();
+  void		setKeyState(std::map<Keyboard::Key, bool> &);
 };
 
 #endif

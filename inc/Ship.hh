@@ -3,20 +3,25 @@
 
 # include	"AEntity.hh"
 # include	"AWeapon.hh"
+# include	<SFML/Graphics.hpp>
 
 class		Ship : public AEntity
 {
 private:
-  int		life;
-  AWeapon	weapon;
+  AWeapon	*weapon;
+  std::map<Keyboard::Key, bool>	keyState;
 
 public:
-  Ship();
+  Ship(SpriteGiver &);
   ~Ship();
 
   void		getDamage(const int damage, const EnumSound type);
-  AWeapon	getWeapon() const;
-  void		setWeapon(const AWeapon &);
+  AWeapon*	getWeapon() const;
+  void		setWeapon(AWeapon *);
+  std::map<Keyboard::Key, bool>&	getKeyState();
+  void		setKeyState(std::map<Keyboard::Key, bool>&);
+  bool		move();
+  bool		isShooting();
 };
 
 #endif

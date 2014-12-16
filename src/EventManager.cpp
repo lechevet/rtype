@@ -1,6 +1,7 @@
 #include	<iostream>
 #include	"EventManager.hh"
 #include	"AEntity.hh"
+#include	"BasicWeapon.hh"
 
 EventManager::EventManager(RenderWindow *other)
 {
@@ -11,7 +12,7 @@ EventManager::~EventManager()
 {
 }
 
-void		EventManager::checkEvent()
+void		EventManager::checkEvent(EntityManager &entityManager, IEntity *ship)
 {
   Event		event;
 
@@ -42,37 +43,18 @@ void		EventManager::checkEvent()
     }
 }
 
-void		EventManager::shipReaction(Ship *ship, const Vector2f &res)
-{
-  Time		frameTime = clock.restart();
-  float		framerate = 1 / (frameTime.asSeconds());
-  int		moving = 0.2 * framerate;
-  FloatRect	frect = ship->getSprite().getGlobalBounds();
-
-  if (keyState[Keyboard::Up])
-    {
-      if (ship->getPosition().y >= moving)
-	ship->move(Vector2f(0, -moving));
-    }
-  if (keyState[Keyboard::Down])
-    {
-      if (ship->getPosition().y + moving + frect.height < res.y)
-	ship->move(Vector2f(0, moving));
-    }
-  if (keyState[Keyboard::Left])
-    {
-      if (ship->getPosition().x >= moving)
-	ship->move(Vector2f(-moving, 0));
-    }
-  if (keyState[Keyboard::Right])
-    {
-      if (ship->getPosition().x + moving + frect.width < res.x)
-	ship->move(Vector2f(moving, 0));
-    }
-}
-
-void		EventManager::spawningEnemies(EntityManager &entityManager)
+void		EventManager::spawningEnemies(EntityManager &entityManager, SpriteGiver &sprites)
 {
   if (rand() % 100 == 2)
-    entityManager.add(new Enemy());
+    entityManager.add(new Enemy(sprites));
+}
+
+std::map<Keyboard::Key, bool>&	EventManager::getKeyState()
+{
+  return (keyState);
+}
+
+void		EventManager::setKeyState(std::map<Keyboard::Key, bool> &theState)
+{
+  keyState = theState;
 }

@@ -3,21 +3,23 @@
 
 # include	"AEntity.hh"
 # include	"Definitions.hh"
+# include	"EntityManager.hh"
 
 class		AWeapon : public AEntity
 {
 protected:
   EnumSound	weaponType;
-  EntityType	type;
   int		power;
-  float		frequence;
+  int		delay;
   
 public:
   void		doDamage(IEntity *);
   EnumSound	getWeaponType() const;
   int		getPower() const;
-  float		getFrequence() const;
+  int		getDelay() const;
   void		getDamage(int, EnumSound);
+  bool		move();
+  bool		checkTarget(EntityManager &entityManager);
 };
 
 #endif

@@ -1,11 +1,17 @@
+#include <iostream>
 #include	"Enemy.hh"
 
-Enemy::Enemy()
+Enemy::Enemy(SpriteGiver &sprites)
 {
-  texture.loadFromFile("sprites/r-typesheet21.gif", IntRect(16, 16, 64, 32));
-  sprite.setTexture(texture);
-  sprite.setPosition(Vector2f(864, rand() % 600));
+  int	y;
+
+  y = rand() % WINHEIGHT - sprite.getGlobalBounds().height;
+  if (y <= 0)
+    y = 0;
+  sprite = sprites.getSprite("Enemy");
+  sprite.setPosition(Vector2f(WINWIDTH + sprite.getGlobalBounds().width, y));
   type = ENEMY;
+  life = 5;
 }
 
 Enemy::~Enemy()
@@ -19,6 +25,34 @@ int		Enemy::getLife() const
 
 void		Enemy::getDamage(int power, EnumSound type)
 {
+  FloatRect	frect = sprite.getGlobalBounds();
+  float		speed = 0.1 * framerate;
+
   if (type != ENEMYWEAPON)
-    life -= power;
+    {
+      life -= power;
+      this->translation(Vector2f(speed, 0));
+      sprite.setColor(Color::Red);
+    }
+}
+
+bool		Enemy::move()
+{
+  static int	delay = 0;
+  FloatRect	frect = sprite.getGlobalBounds();
+  float		speed = (0.2 * framerate) / 4;
+
+  if (sprite.getColor() == Color::Red)
+    {
+      delay += framerate;
+      if (delay >= 900)
+	{
+	  sprite.setColor(Color::White);
+	  delay = 0;
+	}
+    }
+  this->translation(Vector2f(-speed, 0));
+  if (this->getPosition().x == -frect.width)
+    return (false);
+  return (true);
 }

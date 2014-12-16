@@ -1,3 +1,4 @@
+#include	<iostream>
 #include	"AWeapon.hh"
 
 void		AWeapon::doDamage(IEntity *entity)
@@ -17,11 +18,23 @@ int		AWeapon::getPower() const
   return (power);
 }
 
-float		AWeapon::getFrequence() const
+int		AWeapon::getDelay() const
 {
-  return (frequence);
+  return (delay);
 }
 
 void		AWeapon::getDamage(int damage, EnumSound type)
 {
 }
+
+bool		AWeapon::move()
+{
+  float		speed = framerate * 0.4;
+
+  this->translation(Vector2f(speed, 0));
+  if (this->getPosition().x > WINWIDTH | this->getPosition().y == WINHEIGHT)
+    return (false);
+  return (true);
+}
+
+

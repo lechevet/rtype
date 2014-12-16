@@ -1,8 +1,12 @@
 #include <iostream>
 #include "EntityManager.hh"
+#include "Ship.hh"
+#include "BasicWeapon.hh"
 
-EntityManager::EntityManager()
+EntityManager::EntityManager(const SpriteGiver &_sprites)
 {
+  sprites = _sprites;
+  framerate = 0;
 }
 
 EntityManager::~EntityManager()
@@ -17,6 +21,8 @@ EntityManager::~EntityManager()
 
 void		EntityManager::add(IEntity *entity)
 {
+  entity->setId(id);
+  ++id;
   _list.push_back(entity);
 }
 
@@ -24,11 +30,14 @@ void		EntityManager::remove(IEntity *entity)
 {
   std::list<IEntity *>::iterator	it;
 
-  it = _list.begin();
-  while (it != _list.end() && *it != entity)
-    ++it;
-  if (*it == entity)
-    _list.erase(it);
+  if (entity)
+    {
+      it = _list.begin();
+      while (it != _list.end() && *it != entity)
+	++it;
+      if (*it == entity)
+	_list.erase(it);
+    }
 }
 
 void		EntityManager::remove(int index)
@@ -47,7 +56,7 @@ void		EntityManager::remove(int index)
     _list.erase(it);
 }
 
-IEntity*	EntityManager::get(int index) const
+IEntity*	EntityManager::find(int index) const
 {
   std::list<IEntity *>::const_iterator	it;
   int		i;
@@ -64,29 +73,76 @@ IEntity*	EntityManager::get(int index) const
   return (NULL);
 }
 
-void		EntityManager::draw_all(RenderWindow &render)
+
+IEntity*	EntityManager::findById(int id)
 {
   std::list<IEntity *>::iterator	it;
 
   it = _list.begin();
+  while (it != _list.end() && (*it)->getId() != id)
+    ++it;
+  return (*it);
+}
+
+void		EntityManager::updateEntities(RenderWindow &render, Clock &clock)
+{
+  std::list<IEntity *>::iterator	it;
+  Time		frameTime = clock.restart();
+  float		newFramerate = 1 / (frameTime.asSeconds());
+
+  framerate = newFramerate;
+  it = _list.begin();
   while (it != _list.end())
     {
-      render.draw((*it)->getSprite());
-      ++it;
+      (*it)->setFramerate(framerate);
+      shoot(*it);
+      //      collision(*it);
+      if (move(*it) == false)
+	it = _list.erase(it);
+      else
+	{
+	  draw(render, *it);
+	  ++it;
+	}
     }
 }
 
-void		EntityManager::enemyScrolling()
+void		EntityManager::shoot(IEntity *entity)
 {
-  std::list<IEntity *>::iterator	it;
-
-  it = _list.begin();
-  while (it != _list.end())
+  if (entity->getType() == SHIP)
     {
-      if ((*it)->getType() == ENEMY)
-	(*it)->move(Vector2f(-2, 0));
-      if ((*it)->getPosition().x == -64)
-	it = _list.erase(it);
-      ++it;
-    }  
+      if (((Ship *)entity)->isShooting() == true)
+	add(new BasicWeapon(entity, sprites));
+    }
 }
+
+void		EntityManager::collision(IEntity *entity)
+{
+  static float	delay = 0;
+
+  if (entity->getSprite().getColor() == Color::White)
+    {
+      delay += framerate;
+      if (delay > 900)
+	{
+	  if (entity->getType() == ENEMY)
+	    entity->getDamage(0, BASICWEAPON);
+	  delay = 0;
+	}
+    }
+}
+
+bool		EntityManager::move(IEntity *entity)
+{
+  if ((entity->move() == false) || (entity->checkDeath() == true))
+    return (false);
+  return (true);
+}
+
+void		EntityManager::draw(RenderWindow &render, IEntity *entity)
+{
+  entity->draw(render);
+}
+
+
+

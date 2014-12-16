@@ -15,7 +15,10 @@ FILES	=	main.cpp \
 		Ship.cpp \
 		AudioManager.cpp \
 		AWeapon.cpp \
-		Enemy.cpp
+		Enemy.cpp \
+		BasicWeapon.cpp \
+		SpriteGiver.cpp \
+		Starfield.cpp
 
 SRC	=	$(addprefix $(SRC_DIR), $(FILES))
 
@@ -26,7 +29,7 @@ INC	=	inc/
 LINK	=	-lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system -g
 
 $(OBJ_DIR)%.o:	$(SRC_DIR)%.cpp
-	$(CC) -c $< -o $@ $(LINK) -I $(INC)
+	$(CC) -c $< -o $@ -I $(INC)
 
 $(NAME):	$(OBJ)
 	$(CC) -o $(NAME) $(OBJ) $(LINK) -I $(INC)
