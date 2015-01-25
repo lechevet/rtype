@@ -19,6 +19,8 @@ public:
   void		add(Client *);
   void		remove(Client *);
   Client*	get(int) const;
+  Client*	findById(int) const;
+  Client*	findBySockAddr(struct sockaddr_in *);
   void		remove_all();
   int		count();
 };

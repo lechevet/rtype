@@ -14,6 +14,7 @@ public:
   virtual void	close() = 0;
   virtual ISocket*	accept() = 0;
   virtual int	realSock() = 0;
+  virtual int	connect(const std::string &host) = 0;
   virtual int	sendData(const void *, size_t, int) const = 0;
   virtual int	sendDataTo(const void *, size_t, int, const SOCKADDR *, socklen_t) const = 0;
   virtual int	recvData(void *, size_t, int) const = 0;

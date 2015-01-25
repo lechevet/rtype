@@ -4,7 +4,7 @@ RM	=	rm -f
 
 NAME	=	server
 
-LINK	=	-ldl
+LINK	=	-ldl -lpthread -g
 
 SRC_DIR	=	src/
 
@@ -12,18 +12,16 @@ OBJ_DIR	=	obj/
 
 FILES	=	main.cpp \
 		Client.cpp \
-		ClientManager.cpp \
-		Lobby.cpp \
-		LobbyManager.cpp \
 		Server.cpp \
-		Select.cpp \
-		Game.cpp \
-		AEntity.cpp \
-		Ship.cpp \
-		Vector.cpp \
-		Enemy.cpp \
-		DynamicLibrariesLoader.cpp \
-		Weapon.cpp
+		ClientManager.cpp \
+		game/Ship.cpp \
+		game/AEntity.cpp \
+		game/Vector.cpp \
+		game/Game.cpp \
+		game/Enemy.cpp \
+		game/DynamicLibrariesLoader.cpp \
+		game/Starfield.cpp \
+		game/Weapon.cpp
 
 DYNDIR	=	mods/
 
@@ -31,7 +29,8 @@ DYNCC	=	$(CC) -shared
 
 DYNNAME	=	$(DYNDIR)Enemy.so
 
-DYNOBJ	=	$(OBJ_DIR)Enemy.o
+DYNOBJ	=	$(OBJ_DIR)game/Enemy.o
+
 SRC	=	$(addprefix $(SRC_DIR), $(FILES))
 
 OBJ	=	$(patsubst $(SRC_DIR)%.cpp, $(OBJ_DIR)%.o, $(SRC))
@@ -41,7 +40,7 @@ INC	=	inc/
 $(OBJ_DIR)%.o:	$(SRC_DIR)%.cpp
 	$(CC) -c $< -o $@ -I $(INC) -g
 
-$(NAME): init	 $(OBJ)
+$(NAME): $(OBJ)
 	$(CC) -rdynamic -o $(NAME) $(OBJ) -I $(INC) $(LINK)
 	$(DYNCC) -o $(DYNNAME) $(DYNOBJ)
 

@@ -1,29 +1,43 @@
 #ifndef		SERVER_HH
 # define	SERVER_HH
 
-# include	"LobbyManager.hh"
+#include	"Socket.hh"
+#include	"Thread.hh"
+#include	"ClientManager.hh"
+#include	"Mutex.hh"
+#include	"game/Game.hh"
 
 class		Server
 {
 private:
-  ClientManager	_clientManager;
-  LobbyManager	_lobbyManager;
-  ISocket	*_sock;
-  int		_ids;
+  Game		_game;
+  ISocket*	_sock;
+  IMutex*	_mutex;
+  int		_maxId;
+  ClientManager _clients;
+  std::list<t_dataGest>	_dataGest;
+
+  void		sendDatas(int);
+  static void	*newClients(void *);
+  void		addClient(t_infos *infos);
+  void		activeClient(int);
+  void		gestData();
 
 public:
   Server();
   ~Server();
 
-  LobbyManager&	getLobbyManager();
   ISocket*	getSock() const;
-  int		getIds() const;
-  Client*	getClient(int) const;
-  void		addClient();
+  int		getMaxId() const;
+  ClientManager	getClient() const;
+  std::list<t_dataGest>	getDataGest()const;
 
-  void		setLobbyManager(LobbyManager &);
   void		setSock(ISocket *);
-  void		setIds(int);
+  void		setMaxId(int);
+  void		setDataGest(t_dataGest *);
+  void		setDataGest(EnumData, int, t_infos *);
+
+  void		start();
 };
 
 #endif

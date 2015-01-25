@@ -27,6 +27,8 @@ typedef		struct sockaddr_in6	SOCKADDR_IN6;
 typedef		struct sockaddr_storage	SOCKADDR_STORAGE;
 typedef		struct sockaddr		SOCKADDR;
 typedef		struct in_addr		IN_ADDR;
+typedef		struct timeval		TIMEVAL;
+
 # endif
 
 #endif

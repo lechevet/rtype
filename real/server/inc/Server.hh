@@ -1,12 +1,11 @@
 #ifndef		SERVER_HH
 # define	SERVER_HH
 
-#include	"RtypeException.hpp"
 #include	"Socket.hh"
 #include	"Thread.hh"
 #include	"ClientManager.hh"
 #include	"Mutex.hh"
-#include	"Game.hh"
+#include	"game/Game.hh"
 
 class		Server
 {

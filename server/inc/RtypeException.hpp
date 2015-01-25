@@ -2,7 +2,7 @@
 # define	RTYPEEXCEPTION_HH
 
 # include	<sstream>
-
+# include	<errno.h>
 class		RtypeException : public std::exception
 {
 public:

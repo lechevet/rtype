@@ -1,36 +1,34 @@
 #ifndef		CLIENT_HH
 # define	CLIENT_HH
 
-# include	"ISocket.hh"
-# include	"Socket.hh"
+#include	<netdb.h>
+
+typedef struct		s_infos
+{
+  struct sockaddr_in	sin;
+  socklen_t		len;
+}			t_infos;
 
 class		Client
 {
 private:
-  ISocket	*_sock;
-  std::string	_sendBuffer;
-  std::string	_recvBuffer;
+  t_infos	_infos;
   int		_id;
+  bool		_active;
 
 public:
   Client();
-  Client(int);
-  Client(const Client &);
+  Client(t_infos *, int);
   ~Client();
 
-  ISocket*	getSock() const;
-  std::string	getSendBuffer() const;
-  std::string	getRecvBuffer() const;
+  t_infos	getInfos() const;
   int		getId() const;
 
-  void		setSock(ISocket *);
-  void		setSendBuffer(const std::string &);
-  void		setRecvBuffer(const std::string &);
+  void		setInfos(t_infos *);
   void		setId(int);
 
-  bool		operator!=(Client&) const;
-  bool		operator==(Client &) const;
-
+  bool		isActive() const;
+  void		setActivity(bool);
 };
 
 #endif

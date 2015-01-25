@@ -1,23 +1,18 @@
 #ifndef		WEAPON_HH
 # define	WEAPON_HH
 
-# include	"AEntity.hh"
-
 class		Weapon : public AEntity
 {
 private:
   int		_delay;
 
 public:
-  Weapon(IEntity*, int);
+  Weapon();
   ~Weapon();
 
-  int		getDelay() const;
-
-  void		setDelay(int);
-
   bool		move();
-  void		getDamage(int, EntityType);
 
+  void		getDamage(int, EntityType);
 };
+
 #endif
