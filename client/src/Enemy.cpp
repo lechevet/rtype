@@ -13,6 +13,7 @@ Enemy::Enemy(SpriteGiver &sprites)
   sprite.setPosition(Vector2f(WINWIDTH + sprite.getGlobalBounds().width, y));
   type = ENEMY;
   life = 5;
+  power = 5;
 }
 
 Enemy::~Enemy()
@@ -29,17 +30,14 @@ int		Enemy::getLife() const
   return (life);
 }
 
-void		Enemy::getDamage(int power, EnumSound type)
+void		Enemy::getDamage(int power)
 {
   FloatRect	frect = sprite.getGlobalBounds();
   float		speed = 0.1 * framerate;
 
-  if (type != ENEMYWEAPON)
-    {
-      life -= power;
-      this->translation(Vector2f(speed, 0));
-      sprite.setColor(Color::Red);
-    }
+  life -= power;
+  this->translation(Vector2f(speed, 0));
+  sprite.setColor(Color::Red);
 }
 
 bool		Enemy::move()

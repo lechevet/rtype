@@ -89,21 +89,25 @@ void		EntityManager::updateEntities(RenderWindow &render, Clock &clock)
   std::list<IEntity *>::iterator	it;
   Time		frameTime = clock.restart();
   float		newFramerate = 1 / (frameTime.asSeconds());
-
+  
   framerate = newFramerate;
   it = _list.begin();
   while (it != _list.end())
     {
       (*it)->setFramerate(framerate);
       shoot(*it);
-      collision(*it);
-      if (move(*it) == false)
-	it = _list.erase(it);
-      else
-	{
-	  draw(render, *it);
-	  ++it;
-	}
+      // if (collision(*it) == false)
+      // 	{
+	  if (move(*it) == false)
+	    it = _list.erase(it);
+	  else
+	    {
+	      draw(render, *it);
+	      ++it;
+	    }
+      // 	}
+      // else
+      // 	it = _list.begin();
     }
 }
 
@@ -116,20 +120,35 @@ void		EntityManager::shoot(IEntity *entity)
     }
 }
 
-void		EntityManager::collision(IEntity *entity)
+bool		EntityManager::collision(IEntity *entity)
 {
-  static float	delay = 0;
+  int		i;
+  IEntity	*tmp;
 
-  if (entity->getSprite().getColor() == Color::White)
+  i = 0;
+  while ((tmp = find(i)) != NULL)
     {
-      delay += framerate;
-      if (delay > 900)
+      if (collisions(entity, tmp) == true)
 	{
-	  if (entity->getType() == ENEMY)
-	    entity->getDamage(0, BASICWEAPON);
-	  delay = 0;
+	  entity->getDamage(tmp->getPower());
+	  tmp->getDamage(entity->getPower());
+	  return (true);
 	}
+      ++i;
     }
+  return (false);
+  // static float	delay = 0;
+
+  // if (entity->getSprite().getColor() == Color::White)
+  //   {
+  //     delay += framerate;
+  //     if (delay > 900)
+  // 	{
+  // 	  if (entity->getType() == ENEMY)
+  // 	    entity->getDamage(0, BASICWEAPON);
+  // 	  delay = 0;
+  // 	}
+  //   }
 }
 
 bool		EntityManager::move(IEntity *entity)
@@ -144,5 +163,18 @@ void		EntityManager::draw(RenderWindow &render, IEntity *entity)
   entity->draw(render);
 }
 
+bool		EntityManager::collisions(IEntity *first, IEntity *second)
+{
+  FloatRect		rect = first->getSprite().getGlobalBounds();
+  FloatRect		rect2 = second->getSprite().getGlobalBounds();
 
-
+  if (first == second || first->getType() == STARFIELD || second->getType() == STARFIELD)
+    return (false);
+  if((rect2.left >= rect.left + rect.width)      // trop à droite
+     || (rect2.left + rect2.width <= rect.left) // trop à gauche
+     || (rect2.top >= rect.top + rect.height) // trop en bas
+     || (rect2.top + rect2.height <= rect.top))  // trop en haut
+    return false; 
+  else
+      return true; 
+}

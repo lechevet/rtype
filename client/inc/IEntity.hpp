@@ -19,13 +19,14 @@ public:
   virtual void		changeScale(const Vector2f &vector) = 0;
   virtual void		changePosition(const Vector2f &vector) = 0;
   virtual Vector2f	getPosition() = 0;
-  virtual void		getDamage(int damage, EnumSound type) = 0;
+  virtual void		getDamage(int) = 0;
   virtual EntityType	getType() const = 0;
   virtual bool		move() = 0;
   virtual bool		checkDeath() const = 0;
   virtual int		getId() const = 0;
   virtual void		setId(int) = 0;
   virtual void		draw(RenderWindow &) = 0;
+  virtual int		getPower() const = 0;
 };
 
 #endif

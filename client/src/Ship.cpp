@@ -10,13 +10,14 @@ Ship::Ship(SpriteGiver &sprites)
   weapon = new BasicWeapon(this, sprites);
   type = SHIP;
   life = 10;
+  power = 5;
 }
 
 Ship::~Ship()
 {
 }
 
-void	Ship::getDamage(int damage, EnumSound type)
+void	Ship::getDamage(int damage)
 {
   if (type == ENEMYWEAPON)
     life -= damage;

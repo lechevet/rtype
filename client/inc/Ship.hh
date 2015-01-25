@@ -15,7 +15,7 @@ public:
   Ship(SpriteGiver &);
   ~Ship();
 
-  void		getDamage(const int damage, const EnumSound type);
+  void		getDamage(const int damage);
   AWeapon*	getWeapon() const;
   void		setWeapon(AWeapon *);
   std::map<Keyboard::Key, bool>&	getKeyState();

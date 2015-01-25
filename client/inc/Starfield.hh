@@ -14,7 +14,7 @@ private:
 public:
   Starfield(SpriteGiver &sprites);
   ~Starfield();
-  void		getDamage(int damage, EnumSound type);
+  void		getDamage(int damage);
   virtual bool	move();
   bool		checkDeath() const;
   void		translation(const Vector2f &);

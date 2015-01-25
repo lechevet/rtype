@@ -14,6 +14,8 @@ private:
   int		id;
   float		framerate;
 
+  bool		collisions(IEntity *first, IEntity *second);
+
 public:
   EntityManager(const SpriteGiver &);
   ~EntityManager();
@@ -24,7 +26,7 @@ public:
   IEntity*	findById(int);
   void		updateEntities(RenderWindow &, Clock &);
   void		shoot(IEntity *);
-  void		collision(IEntity *);
+  bool		collision(IEntity *);
   bool		move(IEntity *);
   void		draw(RenderWindow &, IEntity *);
 };

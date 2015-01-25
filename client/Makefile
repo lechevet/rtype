@@ -42,6 +42,7 @@ $(OBJ_DIR)%.o:	$(SRC_DIR)%.cpp
 
 $(NAME):	 $(OBJ)
 	$(CC) -rdynamic -o $(NAME) $(OBJ) $(LINK) -I $(INC)
+	$(DYNCC) -o $(DYNNAME) $(DYNOBJ)
 
 all:	$(NAME)
 

@@ -67,3 +67,8 @@ void		AEntity::draw(RenderWindow &render)
 {
   render.draw(sprite);
 }
+
+int		AEntity::getPower() const
+{
+  return (power);
+}

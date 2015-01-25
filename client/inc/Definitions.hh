@@ -2,8 +2,8 @@
 # define	DEFINITIONS_HH
 
 
-#define	WINHEIGHT	720
-#define	WINWIDTH	1080
+#define	WINHEIGHT	1080
+#define	WINWIDTH	1920
 
 # include	<SFML/Graphics.hpp>
 
@@ -12,10 +12,7 @@ using namespace sf;
 enum EnumSound
   {
     MUSIC = 0,
-    ENEMYWEAPON,
-    BASICWEAPON,
-    ROCKET,
-    EXPLOSION
+    BASICWEAPON
   };
 
 enum	EntityType

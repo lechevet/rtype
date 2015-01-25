@@ -15,6 +15,7 @@ protected:
   Texture	texture;
   int		life;
   int		id;
+  int		power;
   float		framerate;
 
 public:
@@ -26,13 +27,14 @@ public:
   void		changeScale(const Vector2f &vector);
   void		changePosition(const Vector2f &vector);
   Vector2f	getPosition();
-  virtual void	getDamage(int damage, EnumSound type) = 0;
+  virtual void	getDamage(int damage) = 0;
   EntityType	getType() const;
   virtual bool	move() = 0;
   bool		checkDeath() const;
   int		getId() const;
   void		setId(int);
   void		draw(RenderWindow &);
+  int		getPower() const;
 };
 
 #endif

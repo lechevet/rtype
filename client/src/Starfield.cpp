@@ -19,7 +19,7 @@ Starfield::~Starfield()
 }
 
 
-void	Starfield::getDamage(int damage, EnumSound type)
+void	Starfield::getDamage(int damage)
 {
 }
 

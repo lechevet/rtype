@@ -9,7 +9,7 @@ public:
     Enemy(SpriteGiver &);
     ~Enemy();
   int		getLife() const;
-  void		getDamage(int power, EnumSound type);
+  void		getDamage(int power);
   bool		move();
 };
 

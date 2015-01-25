@@ -8,7 +8,7 @@
 class		AWeapon : public AEntity
 {
 protected:
-  EnumSound	weaponType;
+  EntityType	_entity;
   int		power;
   int		delay;
   
@@ -17,9 +17,8 @@ public:
   EnumSound	getWeaponType() const;
   int		getPower() const;
   int		getDelay() const;
-  void		getDamage(int, EnumSound);
+  void		getDamage(int);
   bool		move();
-  bool		checkTarget(EntityManager &entityManager);
 };
 
 #endif

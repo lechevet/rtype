@@ -32,7 +32,6 @@ DYNCC	=	$(CC) -shared
 DYNNAME	=	$(DYNDIR)Enemy.so
 
 DYNOBJ	=	$(OBJ_DIR)Enemy.o
-
 SRC	=	$(addprefix $(SRC_DIR), $(FILES))
 
 OBJ	=	$(patsubst $(SRC_DIR)%.cpp, $(OBJ_DIR)%.o, $(SRC))

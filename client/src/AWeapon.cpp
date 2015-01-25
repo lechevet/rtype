@@ -5,7 +5,7 @@ void		AWeapon::doDamage(IEntity *entity)
 {
   if (entity->getSprite().getPosition().x == sprite.getPosition().x &&
       entity->getSprite().getPosition().y == sprite.getPosition().y)
-    entity->getDamage(power, weaponType);
+    entity->getDamage(power);
 }
 
 EnumSound	AWeapon::getWeaponType() const
@@ -23,8 +23,9 @@ int		AWeapon::getDelay() const
   return (delay);
 }
 
-void		AWeapon::getDamage(int damage, EnumSound type)
+void		AWeapon::getDamage(int damage)
 {
+  life -= damage;
 }
 
 bool		AWeapon::move()
