@@ -2,40 +2,27 @@
 
 AudioManager::AudioManager()
 {
-  buffer[MUSIC].loadFromFile("music/ffbattle.wav");
-  sound[MUSIC].setBuffer(buffer[MUSIC]);
+  (buffer[MUSIC]).loadFromFile("music/ffbattle.wav");
+  (sound[MUSIC]).setBuffer(buffer[MUSIC]);
+  (buffer[GAMEOVERAUDIO]).loadFromFile("music/continue.wav");
+  (sound[GAMEOVERAUDIO]).setBuffer(buffer[GAMEOVERAUDIO]);
 }
 
 AudioManager::~AudioManager()
 {
 }
 
-void		AudioManager::playMusic()
+void		AudioManager::playMusic(EnumSound audio)
 {
-  sound[MUSIC].play();
+  (sound[audio]).play();
 }
 
-void		AudioManager::pauseMusic()
+void		AudioManager::pauseMusic(EnumSound audio)
 {
-  sound[MUSIC].pause();
+  (sound[audio]).pause();
 }
 
-void		AudioManager::stopMusic()
+void		AudioManager::stopMusic(EnumSound audio)
 {
-  sound[MUSIC].stop();
-}
-
-void		AudioManager::playWeaponSound(const AWeapon &weapon)
-{
-  sound[weapon.getType()].play();
-}
-
-void		AudioManager::pauseWeaponSound(const AWeapon &weapon)
-{
-  sound[weapon.getType()].pause();
-}
-
-void		AudioManager::stopWeaponSound(const AWeapon &weapon)
-{
-  sound[weapon.getType()].stop();
+  (sound[audio]).stop();
 }

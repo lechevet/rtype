@@ -3,25 +3,21 @@
 
 # include	<SFML/Audio.hpp>
 # include	"Definitions.hh"
-# include	"AWeapon.hh"
 
 using namespace sf;
 
 class		AudioManager
 {
 private:
-  SoundBuffer	buffer[5];
-  Sound		sound[5];
+  std::map<EnumSound, SoundBuffer>	buffer;
+  std::map<EnumSound, Sound>		sound;
 
 public:
   AudioManager();
   ~AudioManager();
-  void		playMusic();
-  void		pauseMusic();
-  void		stopMusic();
-  void		playWeaponSound(const AWeapon &);
-  void		pauseWeaponSound(const AWeapon &);
-  void		stopWeaponSound(const AWeapon &);
+  void		playMusic(EnumSound);
+  void		pauseMusic(EnumSound);
+  void		stopMusic(EnumSound);
 };
 
 #endif
