@@ -2,7 +2,7 @@
 # define        SHIP_HH
 
 # include       <map>
-# include       "game/AEntity.hh"
+# include       "AEntity.hh"
 # include       "Definitions.hh"
 
 class           Ship : public AEntity

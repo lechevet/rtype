@@ -1,4 +1,4 @@
-#include	"game/Vector.hh"
+#include	"Vector.hh"
 
 Vector::Vector()
 {

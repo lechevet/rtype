@@ -1,5 +1,4 @@
-#include	<sys/time.h>
-#include	"game/Game.hh"
+#include	"Game.hh"
 
 Game::Game()
 {

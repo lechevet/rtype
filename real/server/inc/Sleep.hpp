@@ -6,24 +6,44 @@
 #  include <time.h>
 #  include <sys/timeb.h>
 
-int gettimeofday (struct timeval *tp, void *tz)
+class	MySleep
 {
-  struct _timeb timebuffer;
-  _ftime (&timebuffer);
-  tp->tv_sec = timebuffer.time;
-  tp->tv_usec = timebuffer.millitm * 1000;
-  return 0;
-}
+public:
+	static int gettimeofday (struct timeval *tp, void *tz)
+	{
+		struct _timeb timebuffer;
+		_ftime64_s(&timebuffer);
+		tp->tv_sec = (long)(timebuffer.time);
+		tp->tv_usec = (long)(timebuffer.millitm * 1000);
+		return 0;
+	}
 
-void	usleep(size_t value)
-{
-  Sleep(value / 1000);
-}
+	static void	usleep(size_t value)
+	{
+		Sleep(value / 1000);
+	}
 
+};
 # else
 
 #  include	<time.h>
 #  include	<sys/time.h>
+
+class	Sleep
+{
+public:
+	static 	int gettimeofday(struct timeval *tp, void *tz)
+	{
+		gettimeofday(tp, tz);
+		return 0;
+	}
+
+	static void	usleep(size_t value)
+	{
+		usleep(value);
+	}
+
+};
 
 # endif
 

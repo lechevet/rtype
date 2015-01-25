@@ -1,6 +1,8 @@
 #ifndef		MUTEXWINDOWS_HPP
 # define	MUTEXWINDOWS_HPP
 
+# include	"IMutex.hh"
+
 class		MutexWindows : public IMutex
 {
 private:
@@ -9,7 +11,7 @@ private:
 public:
   MutexWindows()
   {
-    _mutex = MutexCreate(NULL, false, "Lock");
+    _mutex = CreateMutex(NULL, false, (LPCWSTR)"Lock");
   }
 
   ~MutexWindows() {}
@@ -24,6 +26,6 @@ public:
   {
     return (ReleaseMutex(_mutex));
   }
-}
+};
 
 #endif

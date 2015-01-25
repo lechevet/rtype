@@ -106,7 +106,7 @@ public:
 			 size_t size,
 			 int flags) const
   {
-    int           ret = send(_sock, (char *)data, size, flags);
+    int           ret = send(sock, (char *)data, size, flags);
     return (ret);
   }
 
@@ -116,7 +116,7 @@ public:
 			   const SOCKADDR *sockaddr,
 			   socklen_t socklen) const
   {
-    int           ret = sendto(_sock, (char *)data, size, flags, sockaddr, socklen);
+    int           ret = sendto(sock, (char *)data, size, flags, sockaddr, socklen);
     return (ret);
   }
 
@@ -124,9 +124,10 @@ public:
 			 size_t len,
 			 int flags) const
   {
-    int           ret = recv(_sock, (char *)data, len, flags);
+    int           ret = recv(sock, (char *)data, len, flags);
     return (ret);
   }
+
 
   int		recvDataFrom(void *data,
 			     size_t len,
@@ -134,7 +135,7 @@ public:
 			     SOCKADDR *sockaddr,
 			     socklen_t *socklen) const
   {
-    int           ret = recvfrom(_sock, (char *)data, len, flags, sockaddr, socklen);
+    int           ret = recvfrom(sock, (char *)data, len, flags, sockaddr, socklen);
     return (ret);
   }
 };

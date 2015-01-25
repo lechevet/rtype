@@ -1,7 +1,6 @@
 #ifndef		ENEMY_HH
 # define	ENEMY_HH
 
-# include	<sys/time.h>
 # include	"AEntity.hh"
 
 class		Enemy : public AEntity

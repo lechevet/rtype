@@ -1,8 +1,8 @@
 #ifndef		GAME_HH
 # define	GAME_HH
 
-# include	"game/EntityManager.hpp"
-# include	"game/Starfield.hh"
+# include	"EntityManager.hpp"
+# include	"Starfield.hh"
 
 class		Game
 {

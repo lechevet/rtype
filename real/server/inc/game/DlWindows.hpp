@@ -16,18 +16,18 @@ public:
     char	*name;
     int		i = 0;
 
-    name = malloc(strlen(filename) + 2);
+    name = (char *)malloc(strlen(filename) + 2);
     memset(name, 0, strlen(filename) + 2);
     strcpy(name, filename);
-    while (filename && filename[i] && filename[i] != '.')
+    while (name && name[i] && name[i] != '.')
       ++i;
     if (filename[i] == '.')
       {
-	filename[i + 1] = 'd';
-	filename[i + 2] = 'l';
-	filename[i + 3] = 'l';
+		name[i + 1] = 'd';
+		name[i + 2] = 'l';
+		name[i + 3] = 'l';
       }
-    _handle = LoadLibrary(name);
+    _handle = LoadLibrary((LPCWSTR)name);
   }
 
   char		*error()
@@ -37,7 +37,7 @@ public:
 
   void		*sym(const char *symbol)
   {
-    return (dlsym(GetProcAddress(_handle, symbol)));
+    return (GetProcAddress(_handle, symbol));
   }
 
   int		close()

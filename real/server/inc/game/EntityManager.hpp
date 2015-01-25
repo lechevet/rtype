@@ -4,11 +4,11 @@
 # include	<stdlib.h>
 # include	<time.h>
 # include	<list>
-# include	"game/IEntity.hpp"
-# include	"game/DynamicLibrariesLoader.hh"
-# include	"game/Ship.hh"
+# include	"IEntity.hpp"
+# include	"DynamicLibrariesLoader.hh"
+# include	"Ship.hh"
 # include	<iostream>
-# include	"game/Weapon.hh"
+# include	"Weapon.hh"
 
 template<typename Type>
 class		EntityManager

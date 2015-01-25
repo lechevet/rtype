@@ -1,5 +1,5 @@
 #include	<iostream>
-#include        "game/Ship.hh"
+#include        "Ship.hh"
 
 Ship::Ship(int id)
 {
@@ -17,8 +17,8 @@ Ship::Ship(int id)
   _power = 5;
   _damaged = false;
   setDensity(48, 30);
-  gettimeofday(&_time, NULL);
-  gettimeofday(&_start, NULL);
+  MySleep::gettimeofday(&_time, NULL);
+  MySleep::gettimeofday(&_start, NULL);
 }
 
 Ship::~Ship()
@@ -54,7 +54,7 @@ bool            Ship::move()
 {
   TIMEVAL	end;
 
-  gettimeofday(&end, NULL);
+  MySleep::gettimeofday(&end, NULL);
   if (end.tv_sec > _time.tv_sec)
     _damaged = false;
   else if (end.tv_usec - _time.tv_usec >= 200000)
@@ -86,15 +86,15 @@ bool            Ship::isShooting()
 {
   TIMEVAL	end;
 
-  gettimeofday(&end, NULL);
+  MySleep::gettimeofday(&end, NULL);
   if (end.tv_sec - _start.tv_sec >= 1)
     {
-      gettimeofday(&_start, NULL);
+      MySleep::gettimeofday(&_start, NULL);
       return (_key[SPACE]);
     }
   else if (end.tv_usec - _start.tv_usec >= 200000)
     {
-      gettimeofday(&_start, NULL);
+      MySleep::gettimeofday(&_start, NULL);
       return (_key[SPACE]);
     }
   return (false);
@@ -106,6 +106,6 @@ void            Ship::getDamage(int damage, EntityType type)
     {
       _life -= damage;
       _damaged = true;
-      gettimeofday(&_time, NULL);
+      MySleep::gettimeofday(&_time, NULL);
     }
 }

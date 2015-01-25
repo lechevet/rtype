@@ -1,4 +1,4 @@
-#include	"game/Weapon.hh"
+#include	"Weapon.hh"
 
 Weapon::Weapon(IEntity *entity, int id)
 {

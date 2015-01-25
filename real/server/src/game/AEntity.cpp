@@ -1,4 +1,5 @@
-#include	"game/AEntity.hh"
+#include	"AEntity.hh"
+#include	"Vector.hh"
 
 void		AEntity::setTranslation(float translation)
 {

@@ -1,11 +1,11 @@
 #ifndef		CLIENT_HH
 # define	CLIENT_HH
 
-#include	<netdb.h>
+# include	"CrossType.hh"
 
 typedef struct		s_infos
 {
-  struct sockaddr_in	sin;
+  SOCKADDR_IN	sin;
   socklen_t		len;
 }			t_infos;
 
