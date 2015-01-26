@@ -12,6 +12,8 @@
 #  include	<stdint.h>
 #  pragma comment(lib, "ws2_32.lib")
 #  pragma comment(lib, "winmm.lib")
+
+
 # else
 #  include	<sys/types.h>
 #  include	<sys/socket.h>

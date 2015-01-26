@@ -1,5 +1,5 @@
 #include <iostream>
-#include	"Starfield.hh"
+#include "Starfield.hh"
 
 Starfield::Starfield()
 {

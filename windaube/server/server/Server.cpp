@@ -63,19 +63,20 @@ void		Server::start()
   TIMEVAL		end;
   double			frame;
   int				ret;
+  MySleep	mySleep;
 
   _sock->bind();
   _sock->listen();
   th->create(&newClients, this);
   while (true)
     {
-      MySleep::gettimeofday(&start, NULL);  
+      mySleep.gettimeofday(&start, NULL);  
       gestData();
       ret = _game.update();
       sendDatas(ret);
-      MySleep::gettimeofday(&end, NULL);
+      mySleep.gettimeofday(&end, NULL);
       frame = ((double)(1000000*(end.tv_sec-start.tv_sec)+((end.tv_usec-start.tv_usec))));
-      MySleep::usleep(1000000 / 120 - frame);
+      mySleep.usleep(1000000 / 120 - frame);
     }
 }
 

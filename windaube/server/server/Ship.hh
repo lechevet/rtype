@@ -11,6 +11,7 @@ private:
   std::map<Command, bool>       _key;
   TIMEVAL		_start;
   TIMEVAL		_time;
+  MySleep		_sleep;
 
 public:
   Ship(int id);

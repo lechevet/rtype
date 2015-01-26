@@ -1,6 +1,7 @@
 #ifndef		SERVER_HH
 # define	SERVER_HH
 
+#include	"RtypeException.hpp"
 #include	"Socket.hh"
 #include	"Thread.hh"
 #include	"ClientManager.hh"

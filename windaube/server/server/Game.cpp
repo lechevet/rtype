@@ -51,14 +51,19 @@ void				Game::updateShip(EnumData data, int id)
   _shipManager.findById(id)->setDirection(data);
 }
 
-int				Game::update()
+int				Game::shipNumber() const
 {
-  return (_entityManager.updateEntities());
-    
+  return (_shipManager.count());
 }
 
-void				Game::reset()
+int				Game::update()
+{
+  return (_entityManager.updateEntities());    
+}
+
+int				Game::reset()
 {
   _entityManager.removeAll();
   _entityManager.add(new Starfield());
+  return (-1);
 }

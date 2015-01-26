@@ -7,72 +7,87 @@
 #include	<windows.h>
 #include	<iostream>
 #include	<string>
-
+#include	"Definitions.hh"
 class		socketWindows : public ISocket
 {
 private:
   SOCKET	sock;
 
 public:
-  socketWindows(): ISocket()
+  socketWindows(Protocole protocole)
   {
-    WSADATA WSAData;
-    WSAStartup(MAKEWORD(2,2), &WSAData);
-    
-    if ((sock = ::socket(AF_INET, SOCK_STREAM, 0)) == INVALID_SOCKET)
-      {
-	wprintf(L"socket function failed with error: %ld\n", WSAGetLastError());
-        WSACleanup();
-	throw std::runtime_error("socket function failed");
-      }
+	WSADATA WSAData;
+	WSAStartup(MAKEWORD(2,2), &WSAData);
+	struct protoent *pe;
+	if (protocole == TCP)
+	{
+		pe = getprotobyname("TCP");
+		if ((sock = ::socket(AF_INET, SOCK_STREAM, pe->p_proto)) == INVALID_SOCKET)
+		{
+			wprintf(L"socket function failed with error: %ld\n", WSAGetLastError());
+			WSACleanup();
+			throw std::runtime_error("socket function failed");
+		}
+	}
+	else
+	{
+		pe = getprotobyname("UDP");
+		if ((sock = ::socket(AF_INET, SOCK_DGRAM, pe->p_proto)) == INVALID_SOCKET)
+		{
+			wprintf(L"socket function failed with error: %ld\n", WSAGetLastError());
+			WSACleanup();
+			throw std::runtime_error("socket function failed");
+		}
+
+	}
   }
 
   socketWindows(int fd)
   {
-    sock = fd;
+	sock = fd;
   }
 
   ~socketWindows()
   {
-    ::_close(sock);
+	::_close(sock);
   }
 
   virtual bool	bind()
   {
-    struct sockaddr_in	sin;
+	struct sockaddr_in	sin;
 
-    sin.sin_family = AF_INET;
-    sin.sin_port = htons(PORT);
-    sin.sin_addr.s_addr = INADDR_ANY;
-    if (::bind(sock, (SOCKADDR *)(&sin), sizeof(sin)) == -1)
-      {
-	wprintf(L"bind function failed with error %d\n", WSAGetLastError());
-	if ((closesocket(sock)) == SOCKET_ERROR)
+	sin.sin_family = AF_INET;
+	sin.sin_port = htons(PORT);
+	sin.sin_addr.s_addr = INADDR_ANY;
+	if (::bind(sock, (SOCKADDR *)(&sin), sizeof(sin)) == -1)
 	  {
-	    wprintf(L"closesocket function failed with error %d\n", WSAGetLastError());
+		wprintf(L"bind function failed with error %d\n", WSAGetLastError());
+		if ((closesocket(sock)) == SOCKET_ERROR)
+		  {
+			wprintf(L"closesocket function failed with error %d\n", WSAGetLastError());
+		  }
+		throw std::runtime_error("bind function failed");
+		WSACleanup();
+		delete(this);
+		return false;
 	  }
-	throw std::runtime_error("bind function failed");
-	WSACleanup();
-	delete(this);
-	return false;
-      }
-    return true;
+	return true;
   }
 
   virtual bool	listen()
   {
-    if ((::listen(sock, 42)) == SOCKET_ERROR)
-      {
-	wprintf(L"listen function failed with error: %d\n", WSAGetLastError());
-	if ((closesocket(sock)) == SOCKET_ERROR)
+	if ((::listen(sock, 42)) == SOCKET_ERROR)
 	  {
-	    wprintf(L"closesocket function failed with error %d\n", WSAGetLastError());
+		wprintf(L"listen function failed with error: %d\n", WSAGetLastError());
+		if ((closesocket(sock)) == SOCKET_ERROR)
+		{
+			wprintf(L"closesocket function failed with error %d\n", WSAGetLastError());
+		}
+		WSACleanup();
+		throw std::runtime_error("listen function failed");
+		return false;
 	  }
-	WSACleanup();
-	throw std::runtime_error("listen function failed");
-	return false;
-      }
-    return (true);
+	return (true);
   }
 
   virtual void	close()
@@ -81,33 +96,33 @@ public:
 
   virtual ISocket*	accept()
   {
-    ISocket* clientSocket;
-    SOCKET newSock;
-    SOCKADDR_IN csin;
-    int csinSize;
+	ISocket* clientSocket;
+	SOCKET newSock;
+	SOCKADDR_IN csin;
+	int csinSize;
 
-    if ((newSock = ::accept(sock, (SOCKADDR *)&csin, &csinSize)) == INVALID_SOCKET)
-      {
-	wprintf(L"accept function failed with error: %ld\n", WSAGetLastError());
-	WSACleanup();
-	throw std::runtime_error("accept function failed");
-        return NULL;
-      }
-    clientSocket = new socketWindows(newSock);
-    return clientSocket;
+	if ((newSock = ::accept(sock, (SOCKADDR *)&csin, &csinSize)) == INVALID_SOCKET)
+	  {
+		wprintf(L"accept function failed with error: %ld\n", WSAGetLastError());
+		WSACleanup();
+		throw std::runtime_error("accept function failed");
+		return NULL;
+		}
+	clientSocket = new socketWindows(newSock);
+	return clientSocket;
   }
 
   virtual int	realSock()
   {
-    return (sock);
+	return (sock);
   }
 
   int		sendData(const void *data,
 			 size_t size,
 			 int flags) const
   {
-    int           ret = send(_sock, (char *)data, size, flags);
-    return (ret);
+	int           ret = send(sock, (char *)data, size, flags);
+	return (ret);
   }
 
   int		sendDataTo(const void *data,
@@ -116,26 +131,27 @@ public:
 			   const SOCKADDR *sockaddr,
 			   socklen_t socklen) const
   {
-    int           ret = sendto(_sock, (char *)data, size, flags, sockaddr, socklen);
-    return (ret);
+	int           ret = sendto(sock, (char *)data, size, flags, sockaddr, socklen);
+	return (ret);
   }
 
   int		recvData(void *data,
 			 size_t len,
 			 int flags) const
   {
-    int           ret = recv(_sock, (char *)data, len, flags);
-    return (ret);
+	int           ret = recv(sock, (char *)data, len, flags);
+	return (ret);
   }
 
+
   int		recvDataFrom(void *data,
-			     size_t len,
-			     int flags,
-			     SOCKADDR *sockaddr,
-			     socklen_t *socklen) const
+				 size_t len,
+				 int flags,
+				 SOCKADDR *sockaddr,
+				 socklen_t *socklen) const
   {
-    int           ret = recvfrom(_sock, (char *)data, len, flags, sockaddr, socklen);
-    return (ret);
+	int           ret = recvfrom(sock, (char *)data, len, flags, sockaddr, socklen);
+	return (ret);
   }
 };
 #ifdef WIN32

@@ -23,9 +23,10 @@ public:
   void				addShip(int);
   void				removeShip(int);
   void				updateShip(EnumData, int);
+  int				shipNumber() const;
 
   int				update();
-  void				reset();
+  int				reset();
 };
 
 #endif

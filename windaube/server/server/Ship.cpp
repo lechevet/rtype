@@ -17,8 +17,8 @@ Ship::Ship(int id)
   _power = 5;
   _damaged = false;
   setDensity(48, 30);
-  MySleep::gettimeofday(&_time, NULL);
-  MySleep::gettimeofday(&_start, NULL);
+  _sleep.gettimeofday(&_time, NULL);
+  _sleep.gettimeofday(&_start, NULL);
 }
 
 Ship::~Ship()
@@ -54,7 +54,7 @@ bool            Ship::move()
 {
   TIMEVAL	end;
 
-  MySleep::gettimeofday(&end, NULL);
+  _sleep.gettimeofday(&end, NULL);
   if (end.tv_sec > _time.tv_sec)
     _damaged = false;
   else if (end.tv_usec - _time.tv_usec >= 200000)
@@ -86,15 +86,15 @@ bool            Ship::isShooting()
 {
   TIMEVAL	end;
 
-  MySleep::gettimeofday(&end, NULL);
+  _sleep.gettimeofday(&end, NULL);
   if (end.tv_sec - _start.tv_sec >= 1)
     {
-      MySleep::gettimeofday(&_start, NULL);
+      _sleep.gettimeofday(&_start, NULL);
       return (_key[SPACE]);
     }
   else if (end.tv_usec - _start.tv_usec >= 200000)
     {
-      MySleep::gettimeofday(&_start, NULL);
+      _sleep.gettimeofday(&_start, NULL);
       return (_key[SPACE]);
     }
   return (false);
@@ -106,6 +106,6 @@ void            Ship::getDamage(int damage, EntityType type)
     {
       _life -= damage;
       _damaged = true;
-      MySleep::gettimeofday(&_time, NULL);
+      _sleep.gettimeofday(&_time, NULL);
     }
 }

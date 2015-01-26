@@ -16,7 +16,7 @@ public:
   virtual void		setDensity(int, int) = 0;
   virtual void		setDensity(const Vector &) = 0;
   virtual Vector       	getCoord() const = 0;
-  virtual float		getTranslation() const = 0;
+  virtual int		getTranslation() const = 0;
   virtual int		getId() const = 0;
   virtual int		getLife() const = 0;
   virtual EntityType	getType() const = 0;

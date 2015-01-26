@@ -17,7 +17,7 @@ Enemy::Enemy(int id)
   _translation = -3;
   _id = id;
   _power = 5;
-  gettimeofday(&_start, NULL);
+  _sleep.gettimeofday(&_start, NULL);
   _damaged = false;
 }
 
@@ -41,7 +41,7 @@ void		Enemy::getDamage(int power, EntityType type)
     {
       _life -= power;
       _damaged = true;
-      gettimeofday(&_start, NULL);
+      _sleep.gettimeofday(&_start, NULL);
     }
 }
 
@@ -49,7 +49,7 @@ bool		Enemy::move()
 {
   TIMEVAL	end;
 
-  gettimeofday(&end, NULL);
+  _sleep.gettimeofday(&end, NULL);
   if (end.tv_sec > _start.tv_sec)
     _damaged = false;
   else if (end.tv_usec - _start.tv_usec >= 200000)

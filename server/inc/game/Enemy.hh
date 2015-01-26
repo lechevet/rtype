@@ -1,13 +1,14 @@
 #ifndef		ENEMY_HH
 # define	ENEMY_HH
 
-# include	<sys/time.h>
 # include	"AEntity.hh"
 
 class		Enemy : public AEntity
 {
 private:
   TIMEVAL	_start;
+  MySleep	_sleep;
+
 public:
   Enemy(int id);
     ~Enemy();

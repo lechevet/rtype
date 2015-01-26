@@ -25,23 +25,28 @@ public:
 
 };
 # else
+#	include <iostream>
 
 #  include	<time.h>
 #  include	<sys/time.h>
 
-class	Sleep
+class	MySleep
 {
 public:
-	static 	int gettimeofday(struct timeval *tp, void *tz)
-	{
-		gettimeofday(tp, tz);
-		return 0;
-	}
+  static 	int gettimeofday(struct timeval *tp, struct timezone *tz)
+  {
+    struct timeval te;
 
-	static void	usleep(size_t value)
-	{
-		usleep(value);
-	}
+    ::gettimeofday(&te, NULL);
+    tp->tv_sec = te.tv_sec;
+    tp->tv_usec = te.tv_usec;
+    return 0;
+  }
+
+  static void	usleep(size_t value)
+  {
+    ::usleep(value);
+  }
 
 };
 

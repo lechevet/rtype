@@ -1,7 +1,7 @@
 #ifndef		WEAPON_HH
 # define	WEAPON_HH
 
-# include	"game/AEntity.hh"
+# include	"AEntity.hh"
 
 class		Weapon : public AEntity
 {

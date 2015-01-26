@@ -98,7 +98,7 @@ Client*		ClientManager::findById(int id) const
   return (*it);  
 }
 
-Client*		ClientManager::findBySockAddr(struct sockaddr_in *sin)
+Client*		ClientManager::findBySockAddr(SOCKADDR_IN *sin)
 {
   std::list<Client *>::const_iterator it;
   int		i = 0;

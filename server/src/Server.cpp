@@ -1,7 +1,6 @@
 #include	<iostream>
-#include	<netdb.h>
-#include	<sys/socket.h>
 #include	"NoSuchObjectException.hpp"
+
 #include	"Server.hh"
 
 Server::Server()
@@ -60,24 +59,24 @@ void		Server::start()
 {
   IThread *th = new AbstractThread();
   t_proto	rec;
-  struct sockaddr_in	sin;
   TIMEVAL		start;
   TIMEVAL		end;
   double			frame;
   int				ret;
+  MySleep	mySleep;
 
   _sock->bind();
   _sock->listen();
   th->create(&newClients, this);
   while (true)
     {
-      gettimeofday(&start, NULL);  
+      mySleep.gettimeofday(&start, NULL);  
       gestData();
       ret = _game.update();
       sendDatas(ret);
-      gettimeofday(&end, NULL);
+      mySleep.gettimeofday(&end, NULL);
       frame = ((double)(1000000*(end.tv_sec-start.tv_sec)+((end.tv_usec-start.tv_usec))));
-      usleep(1000000 / 120 - frame);
+      mySleep.usleep(1000000 / 120 - frame);
     }
 }
 

@@ -8,41 +8,27 @@
 class		DlWindows : public IDl
 {
 private:
-  HMODULE	_handle;
+  HINSTANCE	_handle;
 
 public:
   void		open(const char *filename, int flag)
   {
-    char	*name;
-    int		i = 0;
-
-    name = malloc(strlen(filename) + 2);
-    memset(name, 0, strlen(filename) + 2);
-    strcpy(name, filename);
-    while (filename && filename[i] && filename[i] != '.')
-      ++i;
-    if (filename[i] == '.')
-      {
-	filename[i + 1] = 'd';
-	filename[i + 2] = 'l';
-	filename[i + 3] = 'l';
-      }
-    _handle = LoadLibrary(name);
+	  _handle = LoadLibrary((LPCWSTR)filename);
   }
 
   char		*error()
   {
-    return ("Can't find symbol.");
+	return ("Can't find symbol.");
   }
 
   void		*sym(const char *symbol)
   {
-    return (dlsym(GetProcAddress(_handle, symbol)));
+	return (GetProcAddress(_handle, symbol));
   }
 
   int		close()
   {
-    return (FreeLibrary(_handle));
+	return (FreeLibrary(_handle));
   }
 };
 #endif

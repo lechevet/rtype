@@ -1,4 +1,5 @@
 #include	"game/AEntity.hh"
+#include	"game/Vector.hh"
 
 void		AEntity::setTranslation(float translation)
 {
@@ -42,7 +43,7 @@ Vector		AEntity::getCoord() const
   return (_coord);
 }
 
-float		AEntity::getTranslation() const
+int			AEntity::getTranslation() const
 {
   return (_translation);
 }

@@ -14,6 +14,7 @@ public:
   int		create(void * (* start_routine) (void *), void * arg)
   {
     _thread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)start_routine, (LPVOID) arg, 0, &_id);
+	return (0);
   }
 
   int		cancel()
@@ -28,6 +29,7 @@ public:
   {
     WaitForSingleObject(_thread, INFINITE);
     thread_return = NULL;
+	return (0);
   }
 
   int		exit(void * retval)

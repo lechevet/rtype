@@ -1,13 +1,13 @@
 #ifndef		AENTITY_HH
 # define	AENTITY_HH
 
-# include	"game/IEntity.hpp"
+# include	"IEntity.hpp"
 
 class		AEntity : public IEntity
 {
 protected:
   Vector	_coord;
-  float		_translation;
+  int		_translation;
   Vector	_density;
   int		_id;
   int		_life;
@@ -26,7 +26,7 @@ public:
   virtual void		setDensity(const Vector &);
 
   virtual Vector	getCoord() const;
-  virtual float		getTranslation() const;
+  virtual int		getTranslation() const;
   virtual int		getId() const;
   virtual int		getLife() const;
   virtual EntityType	getType() const;

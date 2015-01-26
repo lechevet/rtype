@@ -7,6 +7,8 @@ class		Enemy : public AEntity
 {
 private:
   TIMEVAL	_start;
+  MySleep	_sleep;
+
 public:
   Enemy(int id);
     ~Enemy();
