@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{8D9AF427-CE43-46FC-BEE2-7322D8147240}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>server</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="AEntity.hh" />
+    <ClInclude Include="Client.hh" />
+    <ClInclude Include="ClientManager.hh" />
+    <ClInclude Include="CrossType.hh" />
+    <ClInclude Include="Definitions.hh" />
+    <ClInclude Include="Dl.hh" />
+    <ClInclude Include="DlUnix.hpp" />
+    <ClInclude Include="DlWindows.hpp" />
+    <ClInclude Include="DynamicLibrariesLoader.hh" />
+    <ClInclude Include="Enemy.hh" />
+    <ClInclude Include="EntityManager.hpp" />
+    <ClInclude Include="Game.hh" />
+    <ClInclude Include="IDl.hh" />
+    <ClInclude Include="IEntity.hpp" />
+    <ClInclude Include="IMutex.hh" />
+    <ClInclude Include="ISocket.hh" />
+    <ClInclude Include="IThread.hh" />
+    <ClInclude Include="Mutex.hh" />
+    <ClInclude Include="MutexUnix.hpp" />
+    <ClInclude Include="MutexWindows.hpp" />
+    <ClInclude Include="NoSuchObjectException.hpp" />
+    <ClInclude Include="RtypeException.hpp" />
+    <ClInclude Include="Server.hh" />
+    <ClInclude Include="Ship.hh" />
+    <ClInclude Include="Sleep.hpp" />
+    <ClInclude Include="Socket.hh" />
+    <ClInclude Include="socketUnix.hpp" />
+    <ClInclude Include="socketWindows.hpp" />
+    <ClInclude Include="Starfield.hh" />
+    <ClInclude Include="Thread.hh" />
+    <ClInclude Include="ThreadUnix.hpp" />
+    <ClInclude Include="ThreadWindows.hpp" />
+    <ClInclude Include="Vector.hh" />
+    <ClInclude Include="Weapon.hh" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AEntity.cpp" />
+    <ClCompile Include="Client.cpp" />
+    <ClCompile Include="ClientManager.cpp" />
+    <ClCompile Include="DynamicLibrariesLoader.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Server.cpp" />
+    <ClCompile Include="Ship.cpp" />
+    <ClCompile Include="Starfield.cpp" />
+    <ClCompile Include="Vector.cpp" />
+    <ClCompile Include="Weapon.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
